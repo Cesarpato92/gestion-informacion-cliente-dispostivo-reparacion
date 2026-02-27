@@ -1,4 +1,4 @@
-export class Clientes {
+export class Cliente {
     constructor(cedula, nombre, email, telefono) {
         this.cedula = cedula?.trim() || '';
         this.nombre = nombre?.trim() || '';
