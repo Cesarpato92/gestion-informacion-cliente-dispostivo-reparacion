@@ -1,7 +1,10 @@
-# archivos de entorno
+
+# Dependencias
+node_modules/
+package-lock.json
+
+# Archivos de entorno
 .env
 .env.local
-.env.development
-.env.test
-
-node_modules/
+.env.development.local
+.env.production.local
