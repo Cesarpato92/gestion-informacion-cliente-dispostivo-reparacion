@@ -44,7 +44,7 @@ export const crearRegistro = async (req, res) => {
             return res.status(400).json({ success:false, message: 'Datos de la reparación inválidos' });
         }
 
-        const conexion = await pool.getConnection();
+        conexion = await pool.getConnection();
         await conexion.beginTransaction();
 
         // Verificar si el cliente ya existe por su cédula
@@ -87,5 +87,40 @@ export const crearRegistro = async (req, res) => {
             conexion.release();
         }
         
+    }
+};
+
+export const buscarClientePorCedula = async (req, res) => {
+    let conexion;
+    
+    try {
+        const cedula = req.params.cedula;
+        const clienteValidacion = new Cliente(cedula, '','','');
+        if(!clienteValidacion.validacionCedula()){
+            return res.status(400).json({ success:false, message: 'Cédula inválida' });
+        }
+        // Buscar en la DB
+        conexion =  await pool.getConnection();
+
+        const [clienteEncontrado] = await conexion.query('SELECT * FROM cliente WHERE cedula = ?', [cedula]);
+        if (clienteEncontrado.length === 0) {
+            return res.status(404).json({ success:false, message: 'Cliente no encontrado' });
+        }
+
+        // convertimos a objeto el cliente usando fromDB
+        const clienteCompleto = Cliente.fromDB(clienteEncontrado[0]);
+        res.status(200).json({ 
+            success:true, 
+            data: clienteCompleto
+        });
+    } 
+    catch (error) {
+        console.error('Error al buscar el cliente:', error);
+        res.status(500).json({ success:false, message: 'Error al buscar el cliente' });
+        }
+    finally {
+        if (conexion) {
+            conexion.release();
+        }
     }
 };

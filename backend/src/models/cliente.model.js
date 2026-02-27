@@ -5,9 +5,8 @@ export class Cliente {
         this.email = email?.trim() || '';
         this.telefono = telefono?.trim() || '';
     }
-
-     validacion() {
-        if (!this.cedula || !this.nombre || !this.email || !this.telefono) {
+    validacionCedula() {
+        if (!this.cedula) {
             return false;
         }
         // Validar que la cedula solo contenga numeros y un maximo de 15 caracteres
@@ -17,18 +16,24 @@ export class Cliente {
         if (this.cedula.length > 15) {
             return false;
         }
+        return true;
+        
+    }
+    validacionNombre() {
         // Validar que el nombre solo contenga letras y un maximo de 150 caracteres
+        if  (!this.nombre) {
+            return false;
+        }
         if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(this.nombre)) {
             return false;  // solo deben de ser letras y espacios
         }
         if (this.nombre.length > 150) {
             return false;
         }
-        // Validar que el telefono solo contenga numeros y un maximo de 15 caracteres
-        if (!/^\d+$/.test(this.telefono)) {
-            return false; 
-        }
-        if (this.telefono.length > 15) {
+        return true;
+    }
+    validacionEmail() {
+        if (!this.email) {
             return false;
         }
         // Utilizacion de Regex para validar el formato del email, debe contener un @ y un . y un maximo de 100 caracteres
@@ -40,6 +45,37 @@ export class Cliente {
         if (this.email.length > 100) {
             return false;
         }
+        return true;
+    }
+    validacionTelefono() { 
+        // Validar que el telefono solo contenga numeros y un maximo de 15 caracteres
+        
+        if (!this.telefono) {
+            return false;
+        }
+        if (!/^\d+$/.test(this.telefono)) {
+            return false; 
+        }
+        if (this.telefono.length > 15) {
+            return false;
+        }
+        return true;
+    }
+     validacion() {
+
+        if (!this.validacionCedula()) {
+            return false;
+        }
+        if (!this.validacionNombre()) {
+            return false;
+        }
+        if (!this.validacionEmail()) {
+            return false;
+        }
+        if (!this.validacionTelefono()) {
+            return false;
+        }
+        
         return true;
     }
 
