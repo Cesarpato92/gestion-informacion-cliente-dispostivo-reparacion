@@ -1,4 +1,4 @@
-export class Dispostivo {
+export class Dispositivo {
     constructor(id_dispositivo, marca, version, tipo_reparacion, tipo_password, password, comentarios, cedula ) {
         // id dispostivo es un numero autoincremental, no se debe de validar, pero se debe de convertir a string y eliminar espacios en blanco
         // al ser un numero autoincremental, se puede recibir como null o undefined, en ese caso se debe de asignar null
@@ -80,14 +80,12 @@ export class Dispostivo {
             tipo_reparacion: this.tipo_reparacion,
             tipo_password: this.tipo_password,
             password: this.password,
-            comentarios: this.comentarios,
+            comentarios: this.comentarios || null, // Permitir null para comentarios
             cedula: this.cedula
         };
     }
     // Método estático para crear una instancia de Dispositivo a partir de una fila de la base de datos
     // Este método asume que los nombres de las columnas en la base de datos coinciden con los nombres de las propiedades del modelo
-    
-    
     static fromDB(row) {
         return new Dispositivo(
             row.id_dispositivo,
@@ -100,5 +98,8 @@ export class Dispostivo {
             row.cedula
         );
     }
-    
+    // Método estático para crear un array de instancias de Dispositivo a partir de un array de filas de la base de datos
+    static fromDBArray(rows) {
+        return rows.map(row => Dispositivo.fromDB(row));
+    }
 }

@@ -52,6 +52,9 @@ export class Cliente {
             }
         }
         toUpdate() {
+            if (!this.cedula) {
+                throw new Error('La cédula es requerida para actualizar un cliente');
+            }
             return {
                 nombre: this.nombre,
                 email: this.email,
