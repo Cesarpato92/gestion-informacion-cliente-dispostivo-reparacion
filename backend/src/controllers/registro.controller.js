@@ -133,7 +133,7 @@ export const crearRegistroMultiple = async (req, res) => {
             if (!d.reparaciones || !Array.isArray(d.reparaciones) || d.reparaciones.length === 0) {
                 throw new Error('Cada dispositivo debe tener al menos una reparación');
             }
-            
+
             const dispositivo = new Dispositivo(
                 null,
                 d.marca,
@@ -147,14 +147,14 @@ export const crearRegistroMultiple = async (req, res) => {
             if (!dispositivo.validacion()){
                 throw new Error(`Datos del dispositivo de marca ${d.marca} inválidos`);
             }
-
+            // insertar el dispositivo y obtener su ID para asociarlo a las reparaciones
             const [resultadoDispositivo] = await conexion.query('INSERT INTO dispositivo SET ?', [dispositivo.toInsert()]);
             const id_dispositivo = resultadoDispositivo.insertId;
 
+            // arreglo temporal para almacenar las reparaciones registradas de este dispositivo, se usará para la respuesta final
             const reparacionesRegistradas = [];
 
             // Se procesa cada reparación del dispositivo
-
             for (const r of d.reparaciones) {
                 const reparacion = new Reparacion(
                     null, 
