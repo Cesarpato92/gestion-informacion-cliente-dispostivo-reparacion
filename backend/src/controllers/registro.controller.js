@@ -255,3 +255,42 @@ export const buscarClientePorCedula = async (req, res) => {
         }
     }
 };
+
+export const obtenerRegistros = async (req, res) => {
+    let conexion;
+    
+    try{
+        conexion = await pool.getConnection();
+
+        const [filas] = await pool.query(`
+            SELECT c.cedula, c.nombre, c.email, c.celular as telefono,
+            d.id_dispostivo, d.marca, d.version as modelo, d.tipo_reparacion, d.comentarios,
+            r.id_reparacion, r.precio_reparacion, r.estado, r.fecha_ingreso
+            FROM cliente c
+            LEFT JOIN dispositivo d ON c.cedula = d.cedula
+            LEFT JOIN reparacion r ON d.id_dispositivo = r.id_dispositivo
+            ORDER BY r.fecha_ingreso DESC
+            `)
+
+        res.status(200).json({
+            success: true,
+            data: filas
+        })
+    }
+    catch (error)
+    {
+        if (conexion) {
+            conexion.release();
+        }
+        console.error('Error al listar los datos: ', error);
+        res.status(500).json({
+            success: false,
+            messageL: 'Error al listar los datos'
+        })
+    }
+    finally {
+         if (conexion) {
+            conexion.release();
+        }
+    }
+}
