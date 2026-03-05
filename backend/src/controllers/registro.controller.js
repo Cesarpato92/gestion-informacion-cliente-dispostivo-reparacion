@@ -27,7 +27,7 @@ export const crearRegistro = async (req, res) => {
         const reparacion = new Reparacion(
             null, // id_reparacion se autogenera
             new Date().toISOString().split('T')[0],
-            null, // fecha_entrega se deja null porque se asigna cuando se entrega el dispositivo
+            null, // fecha_entrega se deja null porque se asigna cuando se termina la reparacion
             'pendiente',
             datos.costo_repuesto,
             datos.precio_reparacion, 
@@ -285,7 +285,7 @@ export const obtenerRegistros = async (req, res) => {
         console.error('Error al listar los datos: ', error);
         res.status(500).json({
             success: false,
-            messageL: 'Error al listar los datos'
+            message: 'Error al listar los datos'
         })
     }
     finally {
@@ -293,4 +293,107 @@ export const obtenerRegistros = async (req, res) => {
             conexion.release();
         }
     }
-}
+};
+export const actualizarEstadoReparacion = async (req, res) => {
+    let conexion;
+    try{
+        const {id} = req.params;
+        const { estado, costo_repuesto, comentarios_tecnico } = req.body;
+        let fecha_salida = null;
+        
+        // validacion si id esta vacio o no es correcta
+        if (!id || isNaN(id)) {
+            return res.status(400).json({
+                success: false,
+                message: 'ID de reparación inválido'
+            });
+        }
+
+        // validamos que el estado corresponda a la lista
+        if (!["en proceso", "completada", "cancelada"].includes(estado)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Estado invalido'
+            })
+        }
+
+        if (costo_repuesto !== undefined && (isNaN(costo_repuesto) || costo_repuesto < 0)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Costo de repuesto inválido'
+            });
+        }
+
+
+        if (estado.toLowerCase() === 'completada') {
+            fecha_salida = new Date().toISOString().split('T')[0];
+        }
+
+
+        conexion = await pool.getConnection();
+        // iniciamos la transaccion
+        await conexion.beginTransaction();
+
+        // verificamos que la reparacion exista
+        const [reparacionExistente] = await conexion.query(
+            'SELECT * FROM reparacion WHERE id_reparacion = ?',
+            [id]
+        );
+
+        if (reparacionExistente.length === 0) {
+            await conexion.rollback();
+            return res.status(404).json({
+                success: false,
+                message: 'Reparación no encontrada'
+            });
+        }
+
+        // Usamos el id_reparacion para actualizar
+        const [resultado] = await conexion.query (`
+            UPDATE reparacion SET
+            fecha_salida = ?,
+            estado = ?,
+            costo_repuesto = ?,
+            comentarios = ?
+            WHERE id_reparacion = ?
+            `, 
+            [
+                fecha_salida,
+                estado.toLowerCase(),
+                costo_repuesto,
+                comentarios_tecnico,
+                id])
+        
+        if (resultado.affectedRows === 0){
+            return res.status(404).json({
+                success: false,
+                message: "Reparacion no encontrada"
+            })
+        }
+
+        /// transaccion hecha la cerramos
+        await conexion.commit();
+
+        res.status(200).json({
+            success: true,
+            message: 'Estado actualizado correctamente'
+        })
+    }
+    catch (error) {
+        // error de transaccion
+        if (conexion) {
+            await conexion.rollback();
+        }
+        console.log('Error al actualizar el registro', error);
+        res.status(500).json({
+            success: false,
+            message: error.message || 'Error al actualizar el registro'
+        });
+
+    }
+    finally {
+        if (conexion) {
+            conexion.release();
+        }
+    }
+};
