@@ -1,7 +1,7 @@
-import pool from '../config/db.js';
-import Cliente from '../models/cliente.model.js';
-import Dispositivo from '../models/dispositivo.model.js';
-import Reparacion from '../models/reparacion.model.js';
+import pool from '../config/db.config.js';
+import {Cliente} from '../models/cliente.model.js';
+import{ Dispositivo} from '../models/dispositivo.model.js';
+import{ Reparacion} from '../models/reparacion.model.js';
 
 export const crearRegistro = async (req, res) => {
     let conexion;

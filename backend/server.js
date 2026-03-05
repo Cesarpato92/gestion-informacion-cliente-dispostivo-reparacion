@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import * as registroRutas from './src/routes/registro.routes.js'
-import validarJSON from './src/middleware/error.middleware.js'
+import registroRutas from './src/routes/registro.routes.js'
+import {validarJSON} from './src/middleware/error.middleware.js'
 
 
 dotenv.config();
