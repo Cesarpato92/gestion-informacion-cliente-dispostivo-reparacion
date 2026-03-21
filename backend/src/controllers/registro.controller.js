@@ -280,7 +280,7 @@ export const obtenerRegistros = async (req, res) => {
     catch (error)
     {
         if (conexion) {
-            conexion.release();
+           await conexion.release();
         }
         console.error('Error al listar los datos: ', error);
         res.status(500).json({
