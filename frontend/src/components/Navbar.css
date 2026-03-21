@@ -1,0 +1,311 @@
+.navbar {
+  background: linear-gradient(135deg, rgba(10, 25, 47, 0.95), rgba(17, 34, 64, 0.95));
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 2rem 2rem;
+  margin: 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  border-bottom: 2px solid #0196b4;
+}
+
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #0196b4, #008300, #0196b4);
+  background-size: 200% 100%;
+  animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.navbar img.logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.navbar-logo:hover img.logo {
+  filter: drop-shadow(0 0 8px rgba(1, 150, 180, 0.6));
+}
+
+/* Estilos del menú hamburguesa */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 35px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  position: relative;
+}
+
+.menu-icon-bar {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #0196b4, #008300);
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 4px rgba(1, 150, 180, 0.5);
+}
+
+.menu-icon-bar.open:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+  background: #008300;
+}
+
+.menu-icon-bar.open:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon-bar.open:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+  background: #008300;
+}
+
+/* Estilos del menú de navegación */
+.nav-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar li {
+  margin: 0;
+  position: relative;
+}
+
+.navbar a {
+  color: #e0e0e0;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  display: block;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de circuito en los enlaces */
+.navbar a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(1, 150, 180, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.navbar a:hover::before {
+  left: 100%;
+}
+
+.navbar a:hover {
+  background: linear-gradient(135deg, #0196b4, #008300);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(1, 150, 180, 0.4);
+  transform: translateY(-2px);
+}
+
+.navbar a.active {
+  background: linear-gradient(135deg, #0196b4, #008300);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(1, 150, 180, 0.5);
+  font-weight: 600;
+  position: relative;
+}
+
+.navbar a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: linear-gradient(90deg, #0196b4, #008300);
+  border-radius: 3px;
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    width: 30px;
+  }
+  50% {
+    opacity: 0.6;
+    width: 40px;
+  }
+}
+
+/* Diseño responsivo - Breakpoint a 1030px */
+@media (max-width: 1030px) {
+  .navbar {
+    border-radius: 0 0 1.5rem 1.5rem;
+  }
+  
+  .navbar-container {
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .menu-icon {
+    display: flex;
+   
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: linear-gradient(135deg, rgba(10, 25, 47, 0.98), rgba(17, 34, 64, 0.98));
+    backdrop-filter: blur(20px);
+    border-radius: 0 0 1.5rem 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    gap: 0;
+    margin-top: 0;
+    z-index: 100;
+    border-top: 1px solid rgba(1, 150, 180, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-menu.active {
+    max-height: 500px;
+    opacity: 1;
+    visibility: visible;
+    padding: 1rem 0;
+  }
+
+  .navbar li {
+    width: 100%;
+    position: relative;
+  }
+
+  .navbar a {
+    padding: 0.9rem 1.5rem;
+    text-align: center;
+    color: #e0e0e0;
+    width: 100%;
+    border-radius: 0;
+    white-space: normal;
+    font-size: 1rem;
+  }
+
+  .navbar a:hover {
+    background: linear-gradient(135deg, rgba(1, 150, 180, 0.2), rgba(0, 131, 0, 0.2));
+    color: #0196b4;
+    transform: translateX(5px);
+  }
+  
+  .navbar a.active {
+    background: linear-gradient(135deg, rgba(1, 150, 180, 0.2), rgba(0, 131, 0, 0.2));
+    color: #0196b4;
+    border-left: 4px solid #0196b4;
+  }
+  
+  .navbar a.active::after {
+    display: none;
+  }
+}
+
+/* Estilos para pantallas mayores a 1030px */
+@media (min-width: 1031px) {
+  .nav-menu {
+    display: flex !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative;
+    background: transparent;
+  }
+}
+
+/* Efecto de scanline para navbar */
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(1, 150, 180, 0.3) 10px,
+    rgba(1, 150, 180, 0.3) 20px
+  );
+  pointer-events: none;
+}
+
+/* Animación de carga técnica al hover del navbar */
+@keyframes technicalGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(1, 150, 180, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(1, 150, 180, 0.6);
+  }
+}
+
+.navbar:hover {
+  animation: technicalGlow 1s ease infinite alternate;
+}
