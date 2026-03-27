@@ -171,14 +171,16 @@
 }
 
 .textos.busqueda input {
-  padding: 1rem 11rem 1rem 1rem;
+  padding: 1rem 11.5rem 1rem 1rem !important;
+  width: 100%;
 }
 
 .textos.busqueda .busqueda {
   position: absolute;
-  right: 0.1rem;
+  right: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2;
   background: linear-gradient(135deg, #0196b4, #008300);
   border: none;
   border-radius: 0.5rem;
@@ -192,7 +194,7 @@
 }
 
 .textos.busqueda .busqueda:first-of-type {
-  right: 5.5rem;
+  right: 6rem;
 }
 
 .textos.busqueda .busqueda:last-of-type {
@@ -271,7 +273,10 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 0.5rem;
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
 }
 
 .btn-submit:hover {
@@ -287,38 +292,12 @@
   }
 
   .textos.busqueda {
-    position: relative;
-    margin-bottom: 5rem;
+    margin-bottom: 0.5rem;
   }
 
   .textos.busqueda input {
-    padding: 1rem;
+    padding: 1rem 11.5rem 1rem 1rem !important;
     width: 100%;
-  }
-
-  .textos.busqueda .busqueda {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: auto;
-    bottom: -2.8rem;
-    transform: none;
-    width: 100%;
-    text-align: center;
-    margin: 0;
-  }
-
-  .textos.busqueda .busqueda:first-of-type {
-    bottom: -2.8rem;
-  }
-
-  .textos.busqueda .busqueda:last-of-type {
-    bottom: -5.6rem;
-  }
-
-  .textos.busqueda input:focus~.input-placeholder,
-  .textos.busqueda input:not(:placeholder-shown)~.input-placeholder {
-    top: -0.75rem;
   }
 
   .grupo h2 {
@@ -327,34 +306,89 @@
 }
 
 @media (max-width: 730px) {
-  .columnas-form {
-    display: block;
+  .contenedor-registro {
+    padding: 1.25rem;
+    margin: 0.5rem;
   }
 
   .grupo {
-    margin-bottom: 1rem;
-    padding: 1.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .dispositivo-container,
+  .reparaciones-container {
+    padding: 1rem;
+  }
+
+  .fila-inputs {
+    gap: 1rem;
+  }
+
+  .btn-agregar-reparacion,
+  .btn-eliminar-reparacion,
+  .btn-eliminar-dispositivo {
+    width: 100%;
+    display: block;
+    text-align: center;
   }
 
   .textos.busqueda {
-    margin-bottom: 6rem;
+    margin-bottom: 1rem;
+  }
+
+  .textos.busqueda input {
+    padding: 1rem !important;
+    width: 100%;
+  }
+
+  .textos.busqueda .input-placeholder {
+    top: 1rem !important;
+    transform: none !important;
+  }
+
+  .textos.busqueda input:focus~.input-placeholder,
+  .textos.busqueda input:not(:placeholder-shown)~.input-placeholder {
+    top: -1rem !important;
+    left: 0.75rem !important;
+  }
+
+  .textos.busqueda .busqueda {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    display: block !important;
+    text-align: center;
+    padding: 12px;
   }
 
   .textos.busqueda .busqueda:first-of-type {
-    bottom: -2.8rem;
-  }
-
-  .textos.busqueda .busqueda:last-of-type {
-    bottom: -5.6rem;
+    margin-top: 15px !important;
+    right: auto !important;
   }
 
   .grupo h2 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor-registro {
+    padding: 1rem;
+    border-radius: 1rem;
   }
 
-  .grupo select {
-    font-size: 0.9rem;
-    padding: 0.7rem 1rem;
+  .grupo {
+    padding: 1rem;
+  }
+
+  .fila-inputs {
+    grid-template-columns: 1fr;
   }
 }
 

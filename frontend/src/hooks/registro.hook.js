@@ -29,13 +29,13 @@ export const registroHook = () => {
     const [cliente, setCliente] = useState({ ...CLIENTE_INICIAL });
     const [dispositivos, setDispositivos] = useState([{ ...DISPOSITIVO_INICIAL }]);
     const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
-    
-    // Autodesaparecer mensaje luego de 2 segundos
+
+    // Autodesaparecer mensaje luego de 3 segundos
     useEffect(() => {
         if (mensaje.texto) {
             const timer = setTimeout(() => {
                 setMensaje({ texto: '', tipo: '' });
-            }, 2000);
+            }, 3000);
             return () => clearTimeout(timer);
         }
     }, [mensaje.texto]);
