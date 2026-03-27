@@ -1,11 +1,12 @@
 export class Reparacion {
-    constructor(id_reparacion, fecha_ingreso, fecha_salida, estado, costo_repuesto, precio_reparacion, comentarios, id_dispositivo) {
+    constructor(id_reparacion, fecha_ingreso, fecha_salida, estado, costo_repuesto, precio_reparacion, tipo_reparacion, comentarios, id_dispositivo) {
         this.id_reparacion = id_reparacion ? id_reparacion.toString().trim() : null;
         this.fecha_ingreso = fecha_ingreso || '';
         this.fecha_salida = fecha_salida || null;
         this.estado = estado?.trim() || 'pendiente';
-        this.costo_repuesto = parseInt(costo_repuesto) || 0;
-        this.precio_reparacion = parseInt(precio_reparacion) || 0;
+        this.costo_repuesto = parseFloat(costo_repuesto) || 0;
+        this.precio_reparacion = parseFloat(precio_reparacion) || 0;
+        this.tipo_reparacion = tipo_reparacion?.trim() || '';
         this.comentarios = comentarios?.trim() || '';
         this.id_dispositivo = id_dispositivo ? id_dispositivo.toString().trim() : null;
     }
@@ -21,8 +22,9 @@ export class Reparacion {
             }
         }
 
-        // Validar campos obligatorios
-        if (!this.fecha_ingreso || !this.estado || !this.id_dispositivo) {
+
+
+        if (!this.fecha_ingreso || !this.estado || !this.id_dispositivo || !this.tipo_reparacion) {
             return false;
         }
 
@@ -32,11 +34,12 @@ export class Reparacion {
         }
 
         // Validar estado
-        const estadosValidos = ['pendiente',, 'completada', 'cancelada'];
-        if (!estadosValidos.includes(this.estado)) {
+        const estadosValidos = ['pendiente', 'completada', 'cancelada'];
+        const estadoLower = this.estado.toLowerCase();
+        if (!estadosValidos.includes(estadoLower)) {
             return false;
         }
-        if (this.estado.length > 20) {
+        if (estadoLower.length > 20) {
             return false;
         }
 
@@ -48,11 +51,6 @@ export class Reparacion {
         // Validar costos no negativos
         if (this.costo_repuesto < 0 || this.precio_reparacion < 0) {
             return false;
-        }
-
-        // Validar que precio_reparacion sea mayor a costo_repuesto 
-        if (this.precio_reparacion < this.costo_repuesto) {
-            return false;  
         }
 
         // Validar comentarios no exceda 65535 caracteres (tamaño máximo de TEXT en MySQL)
@@ -69,6 +67,7 @@ export class Reparacion {
             estado: this.estado,
             costo_repuesto: this.costo_repuesto,
             precio_reparacion: this.precio_reparacion,
+            tipo_reparacion: this.tipo_reparacion,
             comentarios: this.comentarios || null,
             id_dispositivo: this.id_dispositivo
             // fecha_salida no se incluye (sera NULL hasta completar la reparacion)
@@ -85,6 +84,7 @@ export class Reparacion {
             estado: this.estado,
             costo_repuesto: this.costo_repuesto,
             precio_reparacion: this.precio_reparacion,
+            tipo_reparacion: this.tipo_reparacion,
             comentarios: this.comentarios || null,
             id_dispositivo: this.id_dispositivo
         };
@@ -92,7 +92,7 @@ export class Reparacion {
 
     // Método para completar una reparación
     completar() {
-        this.estado = 'completada';
+        this.estado = 'Completada';
         this.fecha_salida = new Date().toISOString().split('T')[0];  // Fecha actual YYYY-MM-DD
         return this;
     }
@@ -105,6 +105,7 @@ export class Reparacion {
             row.estado,
             row.costo_repuesto,
             row.precio_reparacion,
+            row.tipo_reparacion,
             row.comentarios,
             row.id_dispositivo
         );

@@ -48,15 +48,14 @@ export class Cliente {
         return true;
     }
     validacionTelefono() { 
-        // Validar que el telefono solo contenga numeros y un maximo de 15 caracteres
-        
+        // Validar que el telefono solo contenga numeros y tenga entre 7 y 15 caracteres
         if (!this.telefono) {
             return false;
         }
         if (!/^\d+$/.test(this.telefono)) {
             return false; 
         }
-        if (this.telefono.length > 15) {
+        if (this.telefono.length < 7 || this.telefono.length > 15) {
             return false;
         }
         return true;
@@ -84,7 +83,7 @@ export class Cliente {
                 cedula: this.cedula,
                 nombre: this.nombre,
                 email: this.email,
-                telefono: this.telefono
+                celular: this.telefono
             }
         }
         toUpdate() {
@@ -94,12 +93,12 @@ export class Cliente {
             return {
                 nombre: this.nombre,
                 email: this.email,
-                telefono: this.telefono
+                celular: this.telefono
             }
         }
         // devuelve solo una fila de la base de datos, por lo que se le pasa un objeto con las propiedades de la tabla cliente
         static fromDB(row) {
-            return new Cliente(row.cedula, row.nombre, row.email, row.telefono);
+            return new Cliente(row.cedula, row.nombre, row.email, row.celular || row.telefono);
         }
         //retorna un array de objetos cliente a partir de un array de filas de la base de datos
         static fromDBArray(rows) {

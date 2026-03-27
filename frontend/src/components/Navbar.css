@@ -6,6 +6,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   position: relative;
   border-bottom: 3px solid #0196b4;
+  z-index: 10000;
 }
 
 .navbar-container {
@@ -123,7 +124,7 @@
 }
 
 /* Diseño responsivo - Breakpoint a 1030px */
-@media (max-width: 1030px) {
+@media (max-width: 1080px) {
   .navbar {
     border-radius: 0 0 1.5rem 1.5rem;
   }
@@ -153,7 +154,7 @@
     margin-top: 0;
     z-index: 100;
     border-top: 1px solid rgba(1, 150, 180, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(197, 172, 172, 0.3);
   }
 
   .nav-menu.active {
@@ -191,7 +192,7 @@
 }
 
 /* Estilos para pantallas mayores a 1030px */
-@media (min-width: 1031px) {
+@media (min-width: 1081px) {
   .nav-menu {
     display: flex !important;
     max-height: none !important;
