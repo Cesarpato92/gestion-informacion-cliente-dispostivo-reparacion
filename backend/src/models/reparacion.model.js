@@ -12,7 +12,7 @@ export class Reparacion {
     }
 
     validacion() {
-        // Validar ID si existe (para actualizaciones)
+        // Validar ID si existe
         if (this.id_reparacion !== null) {
             if (!/^\d+$/.test(this.id_reparacion)) {
                 return false;
