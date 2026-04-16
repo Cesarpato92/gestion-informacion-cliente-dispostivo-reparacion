@@ -6,6 +6,7 @@ export const Registro = () => {
     cliente,
     dispositivos,
     mensaje,
+    numeroOrden,
     handleClienteChange,
     handleDispositivoChange,
     handleReparacionChange,
@@ -15,6 +16,7 @@ export const Registro = () => {
     removerReparacion,
     buscarCliente,
     limpiarCliente,
+    limpiarNumeroOrden,
     handleSubmit
   } = registroHook();
 
@@ -25,26 +27,29 @@ export const Registro = () => {
           {/* DATOS DEL CLIENTE */}
           <div className="grupo">
             <h2>Datos del cliente</h2>
-            <div className="textos busqueda">
-              <input
-                type="number"
-                placeholder=" "
-                id="cedula"
-                name="cedula"
-                value={cliente.cedula}
-                onChange={handleClienteChange}
-                required
-              />
-              <span className="input-placeholder">Cédula</span>
-              <button type="button" className="busqueda" onClick={buscarCliente}>
+            <div className="busqueda-row">
+              <div className="campo">
+                <label>Cédula</label>
+                <input
+                  type="number"
+                  placeholder=" "
+                  id="cedula"
+                  name="cedula"
+                  value={cliente.cedula}
+                  onChange={handleClienteChange}
+                  required
+                />
+              </div>
+              <button type="button" className="btn-buscar" onClick={buscarCliente}>
                 Buscar
               </button>
-              <button type="button" className="busqueda" onClick={limpiarCliente}>
+              <button type="button" className="btn-limpiar" onClick={limpiarCliente}>
                 Limpiar
               </button>
             </div>
             <div className="fila-inputs">
-              <div className="textos">
+              <div className="campo">
+                <label>Nombre</label>
                 <input
                   type="text"
                   id="nombre"
@@ -54,9 +59,9 @@ export const Registro = () => {
                   onChange={handleClienteChange}
                   required
                 />
-                <span className="input-placeholder">Nombre</span>
               </div>
-              <div className="textos">
+              <div className="campo">
+                <label>Email</label>
                 <input
                   type="email"
                   id="email"
@@ -66,9 +71,9 @@ export const Registro = () => {
                   onChange={handleClienteChange}
                   required
                 />
-                <span className="input-placeholder">Email</span>
               </div>
-              <div className="textos">
+              <div className="campo">
+                <label>Celular</label>
                 <input
                   type="number"
                   id="celular"
@@ -78,23 +83,21 @@ export const Registro = () => {
                   onChange={handleClienteChange}
                   required
                 />
-                <span className="input-placeholder">Celular</span>
               </div>
             </div>
           </div>
 
           {/* SECCIÓN DE DISPOSITIVOS */}
-          <div className="grupo mt-4">
+          <div className="grupo">
             <h2>Dispositivos y Reparaciones</h2>
             {dispositivos.map((dispositivo, dIndex) => (
               <div key={dIndex} className="dispositivo-container">
                 <h3>Dispositivo {dIndex + 1}</h3>
 
                 <div className="fila-inputs">
-                  <div className="select-group">
-                    <label htmlFor={`marca-${dIndex}`}>Marca</label>
+                  <div className="campo">
+                    <label>Marca</label>
                     <select
-                      id={`marca-${dIndex}`}
                       name="marca"
                       value={dispositivo.marca}
                       onChange={(e) => handleDispositivoChange(dIndex, e)}
@@ -111,8 +114,8 @@ export const Registro = () => {
                       <option value="Chino">Chino</option>
                     </select>
                   </div>
-
-                  <div className="textos mt-md-4">
+                  <div className="campo">
+                    <label>Versión / Modelo</label>
                     <input
                       type="text"
                       name="version"
@@ -121,15 +124,13 @@ export const Registro = () => {
                       onChange={(e) => handleDispositivoChange(dIndex, e)}
                       required
                     />
-                    <span className="input-placeholder">Versión / Modelo</span>
                   </div>
                 </div>
 
-                <div className="fila-inputs mt-2">
-                  <div className="select-group">
-                    <label htmlFor={`tipo_password-${dIndex}`}>Tipo de contraseña:</label>
+                <div className="fila-inputs">
+                  <div className="campo">
+                    <label>Tipo de contraseña</label>
                     <select
-                      id={`tipo_password-${dIndex}`}
                       name="tipo_password"
                       value={dispositivo.tipo_password}
                       onChange={(e) => handleDispositivoChange(dIndex, e)}
@@ -141,8 +142,8 @@ export const Registro = () => {
                       <option value="Numeros / letras">Números / Letras</option>
                     </select>
                   </div>
-
-                  <div className="textos mt-md-4" style={{ opacity: dispositivo.tipo_password === 'Sin contraseña' ? 0.5 : 1 }}>
+                  <div className="campo">
+                    <label>Contraseña / Patrón</label>
                     <input
                       type="text"
                       name="password"
@@ -151,44 +152,42 @@ export const Registro = () => {
                       onChange={(e) => handleDispositivoChange(dIndex, e)}
                       disabled={dispositivo.tipo_password === 'Sin contraseña'}
                     />
-                    <span className="input-placeholder">Contraseña / Patrón</span>
                   </div>
                 </div>
 
-                <div className="textos">
+                <div className="campo">
+                  <label>Comentarios del dispositivo</label>
                   <textarea
                     name="comentarios"
                     placeholder=" "
                     value={dispositivo.comentarios}
                     onChange={(e) => handleDispositivoChange(dIndex, e)}
                     required
-                  ></textarea>
-                  <span className="input-placeholder">Comentarios del Dispositivo</span>
+                  />
                 </div>
 
-                {/* SUB SECCIÓN DE REPARACIONES */}
+                {/* REPARACIONES */}
                 <div className="reparaciones-container">
                   <h4>Reparaciones</h4>
                   {dispositivo.reparaciones.map((reparacion, rIndex) => (
-                    <div key={rIndex} className="reparacion-item">
-                      <h5>Reparación {rIndex + 1}</h5>
+                    <div key={rIndex} className="rep-item">
+                      <div className="rep-header">
+                        <h5>Reparación {rIndex + 1}</h5>
+                        {dispositivo.reparaciones.length > 1 && (
+                          <button
+                            type="button"
+                            className="btn-del-rep"
+                            onClick={() => removerReparacion(dIndex, rIndex)}
+                          >
+                            ✕
+                          </button>
+                        )}
+                      </div>
 
-                      <div className="fila-inputs">
-                        <div className="textos">
-                          <input
-                            type="number"
-                            name="precio_reparacion"
-                            placeholder=" "
-                            value={reparacion.precio_reparacion}
-                            onChange={(e) => handleReparacionChange(dIndex, rIndex, e)}
-                            required
-                          />
-                          <span className="input-placeholder">Precio Reparación</span>
-                        </div>
-                        <div className="select-group">
-                          <label htmlFor={`tipo_reparacion-${dIndex}-${rIndex}`}>Tipo de Reparación</label>
+                      <div className="rep-campos">
+                        <div className="campo">
+                          <label>Tipo</label>
                           <select
-                            id={`tipo_reparacion-${dIndex}-${rIndex}`}
                             name="tipo_reparacion"
                             value={reparacion.tipo_reparacion}
                             onChange={(e) => handleReparacionChange(dIndex, rIndex, e)}
@@ -208,34 +207,51 @@ export const Registro = () => {
                             <option value="Otro">Otro</option>
                           </select>
                         </div>
-                      </div>
 
-                      <div className="textos">
-                        <textarea
-                          name="comentarios"
-                          placeholder=" "
-                          value={reparacion.comentarios}
-                          onChange={(e) => handleReparacionChange(dIndex, rIndex, e)}
-                          required
-                        ></textarea>
-                        <span className="input-placeholder">Detalles de esta reparación</span>
-                      </div>
+                        <div className="campo">
+                          <label>Precio ($)</label>
+                          <input
+                            type="number"
+                            name="precio_reparacion"
+                            value={reparacion.precio_reparacion}
+                            onChange={(e) => handleReparacionChange(dIndex, rIndex, e)}
+                            required
+                          />
+                        </div>
 
-                      {dispositivo.reparaciones.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removerReparacion(dIndex, rIndex)}
-                          className="btn-eliminar-reparacion"
-                        >
-                          Eliminar Reparación
-                        </button>
-                      )}
+                        <div className="campo campo-garantia">
+                          <label>Garantía</label>
+                          <select
+                            name="vigencia_garantia"
+                            value={reparacion.vigencia_garantia || ''}
+                            onChange={(e) => handleReparacionChange(dIndex, rIndex, e)}
+                          >
+                            <option value="">Sin garantía</option>
+                            <option value="30">30 días</option>
+                            <option value="60">60 días</option>
+                            <option value="90">90 días</option>
+                            <option value="120">120 días</option>
+                            <option value="180">180 días</option>
+                            <option value="365">365 días</option>
+                          </select>
+                        </div>
+
+                        <div className="campo campo-detalle">
+                          <label>Detalles</label>
+                          <textarea
+                            name="comentarios"
+                            value={reparacion.comentarios}
+                            onChange={(e) => handleReparacionChange(dIndex, rIndex, e)}
+                            required
+                          />
+                        </div>
+                      </div>
                     </div>
                   ))}
                   <button
                     type="button"
-                    onClick={() => agregarReparacion(dIndex)}
                     className="btn-agregar-reparacion"
+                    onClick={() => agregarReparacion(dIndex)}
                   >
                     + Agregar Otra Reparación
                   </button>
@@ -244,8 +260,8 @@ export const Registro = () => {
                 {dispositivos.length > 1 && (
                   <button
                     type="button"
-                    onClick={() => removerDispositivo(dIndex)}
                     className="btn-eliminar-dispositivo"
+                    onClick={() => removerDispositivo(dIndex)}
                   >
                     Eliminar Dispositivo
                   </button>
@@ -255,16 +271,38 @@ export const Registro = () => {
 
             <button
               type="button"
-              onClick={agregarDispositivo}
               className="btn-agregar-dispositivo"
+              onClick={agregarDispositivo}
             >
               + Agregar Nuevo Dispositivo
             </button>
           </div>
 
           {mensaje.texto && (
-            <div className={`mensaje ${mensaje.tipo === 'error' ? 'error' : 'success'}`} style={{ padding: '10px', marginTop: '15px', textAlign: 'center', fontWeight: 'bold', color: mensaje.tipo === 'error' ? 'red' : 'green' }}>
+            <div className={`mensaje ${mensaje.tipo}`}>
               {mensaje.texto}
+            </div>
+          )}
+
+          {numeroOrden && (
+            <div className="orden-exito">
+              <div className="orden-label">Número de Orden Generado:</div>
+              <div className="orden-numero">{numeroOrden}</div>
+              <br />
+              <button 
+                type="button" 
+                className="btn-copiar" 
+                onClick={() => navigator.clipboard.writeText(numeroOrden)}
+              >
+                Copiar
+              </button>
+              <button 
+                type="button" 
+                className="btn-cerrar-orden" 
+                onClick={limpiarNumeroOrden}
+              >
+                Cerrar
+              </button>
             </div>
           )}
 

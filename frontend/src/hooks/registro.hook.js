@@ -2,6 +2,14 @@ import { useState, useCallback, useEffect } from "react";
 
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3001') + '/api';
 
+const getAuthHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    };
+};
+
 const CLIENTE_INICIAL = {
     cedula: '',
     nombre: '',
@@ -10,9 +18,11 @@ const CLIENTE_INICIAL = {
 };
 
 const REPARACION_INICIAL = {
-    tipo_reparacion: '',
+    tipo_reparacion: 'Cambio de Pantalla',
     precio_reparacion: '',
-    comentarios: ''
+    comentarios: '',
+    n_orden: '',
+    vigencia_garantia: ''
 };
 
 const DISPOSITIVO_INICIAL = {
@@ -29,6 +39,7 @@ export const registroHook = () => {
     const [cliente, setCliente] = useState({ ...CLIENTE_INICIAL });
     const [dispositivos, setDispositivos] = useState([{ ...DISPOSITIVO_INICIAL }]);
     const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
+    const [numeroOrden, setNumeroOrden] = useState(null);
 
     // Autodesaparecer mensaje luego de 3 segundos
     useEffect(() => {
@@ -67,7 +78,7 @@ export const registroHook = () => {
                 return `El dispositivo #${dIndex + 1} debe tener al menos una reparación.`;
             }
             for (const [rIndex, rep] of disp.reparaciones.entries()) {
-                if (!rep.tipo_reparacion || !rep.precio_reparacion) {
+                if (!rep.tipo_reparacion || rep.precio_reparacion === '' || rep.precio_reparacion === null || rep.precio_reparacion === undefined) {
                     return `Complete el tipo y precio de la reparación #${rIndex + 1} del dispositivo #${dIndex + 1}.`;
                 }
             }
@@ -87,7 +98,9 @@ export const registroHook = () => {
         }
         setMensaje({ texto: 'Buscando cliente...', tipo: 'info' });
         try {
-            const response = await fetch(`${API_URL}/buscar-cliente/${cliente.cedula}`);
+            const response = await fetch(`${API_URL}/registro/buscar-cliente/${cliente.cedula}`, {
+                headers: getAuthHeaders()
+            });
             const data = await response.json();
             if (response.ok && data.success) {
                 setCliente({
@@ -109,6 +122,11 @@ export const registroHook = () => {
     const limpiarCliente = () => {
         setCliente({ ...CLIENTE_INICIAL });
         setMensaje({ texto: '', tipo: '' });
+        setNumeroOrden(null);
+    };
+
+    const limpiarNumeroOrden = () => {
+        setNumeroOrden(null);
     };
 
 
@@ -137,14 +155,19 @@ export const registroHook = () => {
 
 
     const handleReparacionChange = (dIndex, rIndex, e) => {
-        const nuevosDispositivos = [...dispositivos];
-        const nuevasReparaciones = [...nuevosDispositivos[dIndex].reparaciones];
-        nuevasReparaciones[rIndex] = {
-            ...nuevasReparaciones[rIndex],
-            [e.target.name]: e.target.value
-        };
-        nuevosDispositivos[dIndex].reparaciones = nuevasReparaciones;
-        setDispositivos(nuevosDispositivos);
+        setDispositivos(prev => {
+            const nuevosDispositivos = prev.map((disp, i) => {
+                if (i !== dIndex) return disp;
+                return {
+                    ...disp,
+                    reparaciones: disp.reparaciones.map((rep, j) => {
+                        if (j !== rIndex) return rep;
+                        return { ...rep, [e.target.name]: e.target.value };
+                    })
+                };
+            });
+            return nuevosDispositivos;
+        });
     };
 
     const agregarReparacion = (dIndex) => {
@@ -188,13 +211,14 @@ export const registroHook = () => {
                 reparaciones: d.reparaciones.map(r => ({
                     tipo_reparacion: r.tipo_reparacion,
                     precio_reparacion: parseFloat(r.precio_reparacion) || 0,
+                    vigencia_garantia: r.vigencia_garantia || null,
                     comentarios: r.comentarios
                 }))
             }))
         };
 
         try {
-            const response = await fetch(`${API_URL}/registro`, {
+            const response = await fetch(`${API_URL}/registro/registro`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -202,8 +226,15 @@ export const registroHook = () => {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                setMensaje({ texto: 'Registro creado exitosamente', tipo: 'success' });
-                // Reset Form
+                const ordenGenerada = data.data?.n_orden;
+                setNumeroOrden(ordenGenerada);
+                setMensaje({ 
+                    texto: ordenGenerada 
+                        ? `Registro creado exitosamente - Orden: ${ordenGenerada}` 
+                        : 'Registro creado exitosamente', 
+                    tipo: 'success',
+                    nOrden: ordenGenerada
+                });
                 setCliente({ ...CLIENTE_INICIAL });
                 setDispositivos([{ ...DISPOSITIVO_INICIAL, reparaciones: [{ ...REPARACION_INICIAL }] }]);
             } else {
@@ -218,6 +249,7 @@ export const registroHook = () => {
         cliente,
         dispositivos,
         mensaje,
+        numeroOrden,
         handleClienteChange,
         handleDispositivoChange,
         handleReparacionChange,
@@ -227,6 +259,7 @@ export const registroHook = () => {
         removerReparacion,
         buscarCliente,
         limpiarCliente,
+        limpiarNumeroOrden,
         handleSubmit
     };
 };

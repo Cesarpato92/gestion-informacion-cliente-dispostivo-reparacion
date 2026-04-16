@@ -1,5 +1,5 @@
 export class Reparacion {
-    constructor(id_reparacion, fecha_ingreso, fecha_salida, estado, costo_repuesto, precio_reparacion, tipo_reparacion, comentarios, id_dispositivo) {
+    constructor(id_reparacion, fecha_ingreso, fecha_salida, estado, costo_repuesto, precio_reparacion, tipo_reparacion, comentarios, n_orden, id_dispositivo, vigencia_garantia = null, comentarios_tecnico = null) {
         this.id_reparacion = id_reparacion ? id_reparacion.toString().trim() : null;
         this.fecha_ingreso = fecha_ingreso || '';
         this.fecha_salida = fecha_salida || null;
@@ -8,7 +8,10 @@ export class Reparacion {
         this.precio_reparacion = parseFloat(precio_reparacion) || 0;
         this.tipo_reparacion = tipo_reparacion?.trim() || '';
         this.comentarios = comentarios?.trim() || '';
+        this.n_orden = n_orden?.trim() || '';
         this.id_dispositivo = id_dispositivo ? id_dispositivo.toString().trim() : null;
+        this.vigencia_garantia = vigencia_garantia || null;
+        this.comentarios_tecnico = comentarios_tecnico?.trim() || null;
     }
 
     validacion() {
@@ -69,8 +72,9 @@ export class Reparacion {
             precio_reparacion: this.precio_reparacion,
             tipo_reparacion: this.tipo_reparacion,
             comentarios: this.comentarios || null,
-            id_dispositivo: this.id_dispositivo
-            // fecha_salida no se incluye (sera NULL hasta completar la reparacion)
+            n_orden: this.n_orden || null,
+            id_dispositivo: this.id_dispositivo,
+            vigencia_garantia: this.vigencia_garantia || null
         };
     }
 
@@ -86,7 +90,9 @@ export class Reparacion {
             precio_reparacion: this.precio_reparacion,
             tipo_reparacion: this.tipo_reparacion,
             comentarios: this.comentarios || null,
-            id_dispositivo: this.id_dispositivo
+            id_dispositivo: this.id_dispositivo,
+            vigencia_garantia: this.vigencia_garantia || null,
+            comentarios_tecnico: this.comentarios_tecnico || null
         };
     }
 
@@ -107,6 +113,7 @@ export class Reparacion {
             row.precio_reparacion,
             row.tipo_reparacion,
             row.comentarios,
+            row.n_orden,
             row.id_dispositivo
         );
     }

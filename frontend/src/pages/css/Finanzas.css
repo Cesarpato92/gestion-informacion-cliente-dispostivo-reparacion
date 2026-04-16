@@ -1,0 +1,329 @@
+.contenedor-finanzas {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contenedor-finanzas h2 {
+    color: #1a1a2e;
+    font-size: 28px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #16213e;
+    font-weight: 600;
+}
+
+.contenedor-finanzas h3 {
+    color: #16213e;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Filtros */
+.filtros {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.filtros label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: 500;
+    color: #1a1a2e;
+    font-size: 14px;
+}
+
+.filtros input[type="date"] {
+    padding: 10px 14px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.filtros input[type="date"]:focus {
+    outline: none;
+    border-color: #16213e;
+    box-shadow: 0 0 0 3px rgba(22, 33, 62, 0.1);
+}
+
+.filtros button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filtros button:first-of-type {
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+    color: white;
+}
+
+.filtros button:first-of-type:hover {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 33, 62, 0.3);
+}
+
+.filtros button:last-of-type {
+    background: #e4e8ec;
+    color: #1a1a2e;
+}
+
+.filtros button:last-of-type:hover {
+    background: #d0d4d9;
+    transform: translateY(-2px);
+}
+
+/* Mensaje error */
+.contenedor-finanzas .mensaje.error {
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    font-weight: 500;
+}
+
+/* Tarjetas resumen */
+.tarjetas-resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.tarjeta {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tarjeta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #16213e, #0f3460);
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.tarjeta h3 {
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.tarjeta .valor {
+    color: #16213e;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.tarjeta .sub {
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* Gráficos row */
+.graficos-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+@media (max-width: 1024px) {
+    .graficos-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Gráfico card */
+.grafico {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.grafico h3 {
+    color: #16213e;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e4e8ec;
+}
+
+.grafico canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Leyenda */
+.leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #4a4a5a;
+}
+
+.leyenda-item .color {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+}
+
+/* Tabla facturas */
+.grafico table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.grafico thead {
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+    color: white;
+}
+
+.grafico th {
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grafico th:first-child {
+    border-radius: 8px 0 0 0;
+}
+
+.grafico th:last-child {
+    border-radius: 0 8px 0 0;
+}
+
+.grafico td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e4e8ec;
+    color: #4a4a5a;
+    font-size: 14px;
+}
+
+.grafico tbody tr {
+    transition: all 0.2s ease;
+}
+
+.grafico tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.grafico tbody tr:nth-child(even) {
+    background: #fafbfc;
+}
+
+.grafico tbody tr:nth-child(even):hover {
+    background: #f0f2f4;
+}
+
+/* Resumen mes */
+.resumen-mes {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.resumen-mes h3 {
+    color: #16213e;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e4e8ec;
+}
+
+.resumen-mes p {
+    margin: 10px 0;
+    color: #4a4a5a;
+    font-size: 16px;
+}
+
+.resumen-mes p:first-of-type {
+    margin-top: 0;
+}
+
+.resumen-mes strong {
+    color: #16213e;
+    font-weight: 600;
+}
+
+/* Loading */
+.contenedor-finanzas button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-finanzas {
+        padding: 15px;
+    }
+
+    .filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tarjetas-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .grafico {
+        overflow-x: auto;
+    }
+
+    .grafico table {
+        min-width: 500px;
+    }
+}

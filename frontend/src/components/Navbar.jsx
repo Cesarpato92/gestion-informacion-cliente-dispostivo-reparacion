@@ -3,9 +3,26 @@ import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 import logo from '../img/Logo Pcelmedic.png'
 
-export const Navbar = () => {
+const menuItemsByRole = {
+  tecnico: [
+    { path: '/', label: 'INICIO' },
+    { path: '/Registro', label: 'REGISTRO' },
+    { path: '/Reparacion', label: 'REPARACIONES' },
+    { path: '/Garantias', label: 'GARANTIAS' },
+    { path: '/Facturacion', label: 'FACTURAS' },
+  ],
+  administrador: [
+    { path: '/', label: 'INICIO' },
+    { path: '/Finanzas', label: 'FINANZAS' },
+    { path: '/Usuarios', label: 'USUARIOS' },
+  ]
+}
+
+export const Navbar = ({ usuario, onLogout }) => {
   const location = useLocation()
   const [menuAbierto, setMenuAbierto] = useState(false)
+
+  const menuItems = menuItemsByRole[usuario?.rol] || menuItemsByRole.tecnico
 
   const Menu = () => {
     setMenuAbierto(!menuAbierto)
@@ -13,6 +30,10 @@ export const Navbar = () => {
 
   const cerrarMenu = () => {
     setMenuAbierto(false)
+  }
+
+  const handleLogout = () => {
+    onLogout();
   }
 
   return (
@@ -26,7 +47,7 @@ export const Navbar = () => {
                 className="logo" 
                 title="Dale vida a tu dispositivo!"
               />
-            </Link>
+           </Link>
         </div>
         
         <button className="menu-icon" onClick={Menu}>
@@ -36,59 +57,27 @@ export const Navbar = () => {
         </button>
 
         <ul className={`nav-menu ${menuAbierto ? 'active' : ''}`}>
-          <li>
-            <Link 
-              className={location.pathname === '/' ? 'active' : ''} 
-              to="/"
-              onClick={cerrarMenu}
-            >
-              INICIO
-            </Link>
+          {menuItems.map((item) => (
+            <li key={item.path}>
+              <Link 
+                className={location.pathname === item.path ? 'active' : ''} 
+                to={item.path}
+                onClick={cerrarMenu}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+          <li className="user-info">
+            <span className="user-badge">{usuario?.username}</span>
+            <span className={`role-badge role-${usuario?.rol}`}>
+              {usuario?.rol === 'administrador' ? 'Admin' : 'Técnico'}
+            </span>
           </li>
           <li>
-            <Link 
-              className={location.pathname === '/Registro' ? 'active' : ''} 
-              to="/Registro"
-              onClick={cerrarMenu}
-            >
-              REGISTRO
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={location.pathname === '/Reparacion' ? 'active' : ''} 
-              to="/Reparacion"
-              onClick={cerrarMenu}
-            >
-              GESTION REPARACIONES
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={location.pathname === '/Garantias' ? 'active' : ''} 
-              to="/Garantias"
-              onClick={cerrarMenu}
-            >
-              GARANTIAS
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={location.pathname === '/Facturacion' ? 'active' : ''} 
-              to="/Facturacion"
-              onClick={cerrarMenu}
-            >
-              FACTURACION
-            </Link>
-          </li>
-          <li>
-            <Link 
-              className={location.pathname === '/Finanzas' ? 'active' : ''} 
-              to="/Finanzas"
-              onClick={cerrarMenu}
-            >
-              FINANZAS
-            </Link>
+            <button className="btn-logout" onClick={handleLogout}>
+              CERRAR SESIÓN
+            </button>
           </li>
         </ul>
       </div>

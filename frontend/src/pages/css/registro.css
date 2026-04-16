@@ -1,536 +1,69 @@
-* {
-  box-sizing: border-box;
-}
-
-.contenedor-registro {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 2.5rem;
-  background: rgba(10, 25, 47, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(1, 150, 180, 0.3);
-}
-
-.grupo {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(1, 150, 180, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: all 200ms ease;
-  background: rgba(10, 25, 47, 0.5);
-  margin-bottom: 2rem;
-}
-
-.grupo.mt-4 {
-  margin-top: 1rem;
-}
-
-.grupo h2 {
-  color: #0196b4;
-  margin-bottom: 5px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  border-left: 4px solid #0196b4;
-  padding-left: 1rem;
-}
-
-/* Estilos para selects */
-.grupo select {
-  width: 100%;
-  padding: 1rem;
-  background: transparent;
-  border: 2px solid rgba(1, 150, 180, 0.3);
-  border-radius: 0.75rem;
-  font-size: 1rem;
-  color: #e0e0e0;
-  outline: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  appearance: none;
-  height: 3.5rem;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230196b4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1rem;
-  margin-bottom: 0.2rem;
-}
-
-.grupo select:hover {
-  border-color: #0196b4;
-}
-
-.grupo select option {
-  background: #0a192f;
-  color: #e0e0e0;
-
-}
-
-.grupo select:focus {
-  border-color: #0196b4;
-  box-shadow: 0 0 8px rgba(1, 150, 180, 0.3);
-}
-
-/* Estilos para labels de selects */
-.grupo label {
-  display: block;
-  color: #8a8f9e;
-  margin-top: 1.2rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-/* Estilos para inputs flotantes */
-.textos {
-  position: relative;
-  margin-top: 1.2rem;
-  margin-bottom: 0.2rem;
-  width: 100%;
-}
-
-.textos input,
-.textos textarea {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid rgba(1, 150, 180, 0.3);
-  border-radius: 0.75rem;
-  background: transparent;
-  font-size: 1rem;
-  color: #e0e0e0;
-  outline: none;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  height: 3.5rem;
-}
-
-.textos textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-/* quitar flechas de input tipo number */
-.textos input[type="number"]::-webkit-inner-spin-button,
-.textos input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.textos input[type="number"] {
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.textos .input-placeholder {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  padding: 0 0.25rem;
-  color: #8a8f9e;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  font-size: 1rem;
-}
-
-.textos textarea~.input-placeholder {
-  top: 1rem;
-  transform: none;
-}
-
-.textos input:focus,
-.textos input:not(:placeholder-shown),
-.textos textarea:focus,
-.textos textarea:not(:placeholder-shown) {
-  border-color: #0196b4;
-  box-shadow: 0 0 8px rgba(1, 150, 180, 0.3);
-}
-
-.textos input:focus~.input-placeholder,
-.textos input:not(:placeholder-shown)~.input-placeholder,
-.textos textarea:focus~.input-placeholder,
-.textos textarea:not(:placeholder-shown)~.input-placeholder {
-  top: -0.5rem;
-  left: 0.75rem;
-  font-size: 1rem;
-  background: rgba(10, 25, 47, 0);
-  padding: 0 0.5rem;
-  color: #ffffff;
-}
-
-.textos textarea:focus~.input-placeholder,
-.textos textarea:not(:placeholder-shown)~.input-placeholder {
-  top: -1.1rem;
-}
-
-/* Estilos para inputs con botones */
-.textos.busqueda {
-  position: relative;
-  margin-top: 1.2rem;
-  margin-bottom: 0.2rem;
-}
-
-.textos.busqueda input {
-  padding: 1rem 11.5rem 1rem 1rem !important;
-  width: 100%;
-}
-
-.textos.busqueda .busqueda {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  height: calc(100% - 1rem);
-  display: flex;
-  align-items: center;
-  background: linear-gradient(135deg, #0196b4, #008300);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  color: white;
-  white-space: nowrap;
-}
-
-.textos.busqueda .busqueda:first-of-type {
-  right: 6rem;
-}
-
-.textos.busqueda .busqueda:last-of-type {
-  background: linear-gradient(135deg, #666, #444);
-}
-
-.textos.busqueda .busqueda:hover {
-  transform: translateY(-20%) scale(1.05);
-  box-shadow: 0 2px 8px rgba(1, 150, 180, 0.4);
-}
-
-.textos.busqueda .busqueda:last-of-type:hover {
-  background: linear-gradient(135deg, #ff6b6b, #cc5555);
-  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
-}
-
-/* Distribución de campos */
-.fila-inputs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  align-items: end;
-}
-
-.fila-inputs .textos,
-.fila-inputs .textos,
-.fila-inputs .select-group {
-  margin-top: 1.2rem;
-}
-
-/* Ajuste para que labels de select se alineen con el top de los inputs */
-.mt-md-4 {
-  margin-top: 0 !important;
-}
-
-.fila-inputs .select-group label {
-  margin-top: 0;
-}
-
-/* Mensaje */
-.mensaje {
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  margin-top: 0.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-  display: none;
-}
-
-.mensaje.error {
-  display: block;
-  background: rgba(255, 107, 107, 0.2);
-  border: 1px solid #ff6b6b;
-  color: #ff6b6b;
-}
-
-.mensaje.success {
-  display: block;
-  background: rgba(0, 131, 0, 0.2);
-  border: 1px solid #008300;
-  color: #008300;
-}
-
-/* Botón de submit */
-.btn-submit {
-  width: 100%;
-  padding: 1rem;
-  background: linear-gradient(135deg, #0196b4, #008300);
-  color: white;
-  border: none;
-  border-radius: 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 20px;
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-}
-
-.btn-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(1, 150, 180, 0.4);
-}
-
-/* Diseño responsivo */
-@media (max-width: 1100px) {
-  .contenedor-registro {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-
-  .textos.busqueda {
-    margin-bottom: 0.5rem;
-  }
-
-  .textos.busqueda input {
-    padding: 1rem 11.5rem 1rem 1rem !important;
-    width: 100%;
-  }
-
-  .grupo h2 {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 730px) {
-  .contenedor-registro {
-    padding: 1.25rem;
-    margin: 0.5rem;
-  }
-
-  .grupo {
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .dispositivo-container,
-  .reparaciones-container {
-    padding: 1rem;
-  }
-
-  .fila-inputs {
-    gap: 1rem;
-  }
-
-  .btn-agregar-reparacion,
-  .btn-eliminar-reparacion,
-  .btn-eliminar-dispositivo {
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  .textos.busqueda {
-    margin-bottom: 1rem;
-  }
-
-  .textos.busqueda input {
-    padding: 1rem !important;
-    width: 100%;
-  }
-
-  .textos.busqueda .input-placeholder {
-    top: 1rem !important;
-    transform: none !important;
-  }
-
-  .textos.busqueda input:focus~.input-placeholder,
-  .textos.busqueda input:not(:placeholder-shown)~.input-placeholder {
-    top: -1rem !important;
-    left: 0.75rem !important;
-  }
-
-  .textos.busqueda .busqueda {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    margin-top: 8px !important;
-    display: block !important;
-    text-align: center;
-    padding: 12px;
-  }
-
-  .textos.busqueda .busqueda:first-of-type {
-    margin-top: 15px !important;
-    right: auto !important;
-  }
-
-  .grupo h2 {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contenedor-registro {
-    padding: 1rem;
-    border-radius: 1rem;
-  }
-
-  .grupo {
-    padding: 1rem;
-  }
-
-  .fila-inputs {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Nuevos contenedores */
-.dispositivo-container {
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  background: rgba(1, 150, 180, 0.05);
-  /* Ligeramente tintado */
-  border: 1px solid rgba(1, 150, 180, 0.3);
-  position: relative;
-  transition: all 0.3s ease;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-}
-
-.dispositivo-container:hover {
-  border-color: rgba(1, 150, 180, 0.6);
-  box-shadow: 0 4px 15px rgba(1, 150, 180, 0.1);
-}
-
-.dispositivo-container h3 {
-  color: #0196b4;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  border-bottom: 1px dashed rgba(1, 150, 180, 0.3);
-  padding-bottom: 0.5rem;
-}
-
-.reparaciones-container {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-  border: 1px dashed rgba(1, 150, 180, 0.4);
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-}
-
-.reparaciones-container h4 {
-  color: #10b981;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.reparacion-item {
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-}
-
-.reparacion-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-
-.reparacion-item h5 {
-  color: #e0e0e0;
-  margin-bottom: 1.2rem;
-  font-weight: 500;
-}
-
-/* Botones dinámicos */
-.btn-agregar-dispositivo {
-  width: 100%;
-  padding: 1rem;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border: none;
-  border-radius: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-}
-
-.btn-agregar-dispositivo:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-}
-
-.btn-eliminar-dispositivo {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  background: transparent;
-  color: #ef4444;
-  border: 1px solid #ef4444;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1.5rem;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.btn-eliminar-dispositivo:hover {
-  background: rgba(239, 68, 68, 0.1);
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
-}
-
-.btn-agregar-reparacion {
-  padding: 0.7rem 1.2rem;
-  background: rgba(1, 150, 180, 0.1);
-  color: #0196b4;
-  border: 1px dashed #0196b4;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  display: inline-block;
-}
-
-.btn-agregar-reparacion:hover {
-  background: rgba(1, 150, 180, 0.2);
-  transform: translateY(-2px);
-}
-
-.btn-eliminar-reparacion {
-  padding: 0.5rem 1rem;
-  background: transparent;
-  color: #ef4444;
-  border: 1px dashed #ef4444;
-  border-radius: 0.4rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.btn-eliminar-reparacion:hover {
-  background: rgba(239, 68, 68, 0.15);
-}
+/* ========================================
+   REGISTRO.JSX - ESTILOS FINALES
+   ======================================== */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a192f; color: #e0e0e0; font-family: 'Segoe UI', system-ui, sans-serif; }
+.contenedor-registro { max-width: 900px; margin: 1rem auto; padding: 1.5rem; background: #0d1f38; border-radius: 10px; border: 1px solid rgba(0,173,181,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.grupo { margin-bottom: 1.5rem; }
+.grupo h2 { color: #00adb5; font-size: 1.1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(0,173,181,0.3); font-weight: 600; }
+
+.fila-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 0.75rem; }
+@media (max-width: 600px) { .fila-inputs { grid-template-columns: 1fr; } }
+
+.campo { position: relative; }
+.campo input, .campo textarea, .campo select { width: 100%; padding: 0.625rem 0.75rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,173,181,0.3); border-radius: 5px; font-size: 0.85rem; color: #fff; outline: none; transition: border-color 0.2s; }
+.campo input:focus, .campo textarea:focus, .campo select:focus { border-color: #00adb5; box-shadow: 0 0 0 2px rgba(0,173,181,0.15); }
+.campo label { display: block; color: #8a8f9e; font-size: 0.75rem; margin-bottom: 0.25rem; font-weight: 500; }
+.campo textarea { min-height: 50px; resize: vertical; }
+.campo select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300adb5' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; }
+.campo select option { background: #0a192f; color: #e0e0e0; }
+
+.busqueda-row { display: flex; gap: 0.5rem; align-items: flex-end; margin-bottom: 1rem; }
+.busqueda-row .campo { flex: 1; }
+.busqueda-row button { padding: 0.625rem 1rem; border: none; border-radius: 5px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-buscar { background: linear-gradient(135deg, #00adb5, #008577); color: white; }
+.btn-buscar:hover { background: linear-gradient(135deg, #00c9d1, #00adb5); }
+.btn-limpiar { background: rgba(255,255,255,0.1); color: #8a8f9e; border: 1px solid rgba(255,255,255,0.2); }
+.btn-limpiar:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+.dispositivo-container { padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,173,181,0.15); border-radius: 8px; }
+.dispositivo-container h3 { color: #00adb5; font-size: 0.9rem; margin-bottom: 0.75rem; font-weight: 600; }
+
+.reparaciones-container { margin-top: 0.75rem; padding: 0.875rem; background: rgba(0,0,0,0.25); border-radius: 6px; border: 1px dashed rgba(0,173,181,0.25); }
+.reparaciones-container h4 { color: #10b981; font-size: 0.85rem; margin-bottom: 0.75rem; font-weight: 600; }
+
+.rep-item { background: rgba(0,173,181,0.12) !important; border: 1px solid rgba(0,173,181,0.25); border-radius: 6px; padding: 0.875rem; margin-bottom: 0.75rem; }
+.rep-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px dashed rgba(0,173,181,0.25); }
+.rep-header h5 { color: #00adb5; font-size: 0.8rem; font-weight: 600; margin: 0; }
+.btn-del-rep { width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
+.btn-del-rep:hover { background: rgba(239,68,68,0.15); }
+.rep-campos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+.rep-item .campo label { font-size: 0.7rem; }
+.rep-item .campo.campo-detalle { grid-column: span 4; }
+.rep-item .campo.campo-garantia { grid-column: span 1; }
+
+@media (max-width: 600px) { .rep-campos { grid-template-columns: 1fr 1fr; } .rep-item .campo.campo-detalle { grid-column: span 2; } }
+@media (max-width: 400px) { .rep-campos { grid-template-columns: 1fr; } .rep-item .campo.campo-detalle { grid-column: span 1; } }
+
+.btn-submit { width: 100%; padding: 0.875rem; background: linear-gradient(135deg, #00adb5, #008577); color: white; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 1rem; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,173,181,0.4); }
+.btn-agregar-dispositivo { width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-bottom: 1rem; }
+.btn-agregar-dispositivo:hover { transform: translateY(-1px); }
+.btn-eliminar-dispositivo { padding: 0.5rem 0.75rem; background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+.btn-eliminar-dispositivo:hover { background: rgba(239,68,68,0.1); }
+.btn-agregar-reparacion { padding: 0.5rem 0.75rem; background: rgba(0,173,181,0.15); color: #00adb5; border: 1px dashed #00adb5; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+.btn-agregar-reparacion:hover { background: rgba(0,173,181,0.25); }
+
+.mensaje { padding: 0.625rem; border-radius: 5px; margin-top: 0.75rem; text-align: center; font-size: 0.8rem; }
+.mensaje.error { background: rgba(239,68,68,0.15); border: 1px solid #ef4444; color: #ef4444; }
+.mensaje.success { background: rgba(16,185,129,0.15); border: 1px solid #10b981; color: #10b981; }
+
+.orden-exito { background: rgba(16,185,129,0.1); border: 2px solid #10b981; border-radius: 8px; padding: 1rem; margin-top: 1rem; text-align: center; }
+.orden-label { color: #10b981; font-size: 0.85rem; }
+.orden-numero { color: #fff; font-size: 1.1rem; font-weight: 700; background: rgba(0,0,0,0.3); padding: 0.5rem 1rem; border-radius: 5px; display: inline-block; margin: 0.5rem 0; }
+.btn-copiar { padding: 0.375rem 0.75rem; background: #10b981; color: white; border: none; border-radius: 4px; font-size: 0.75rem; cursor: pointer; margin-right: 0.5rem; }
+.btn-cerrar-orden { padding: 0.375rem 0.75rem; background: transparent; color: #8a8f9e; border: 1px solid #8a8f9e; border-radius: 4px; font-size: 0.75rem; cursor: pointer; }
+
+@media (max-width: 768px) { .contenedor-registro { margin: 0.5rem; padding: 1rem; } }
+@media (max-width: 480px) { .contenedor-registro { padding: 0.75rem; } .dispositivo-container, .reparaciones-container, .rep-item { padding: 0.625rem; } }

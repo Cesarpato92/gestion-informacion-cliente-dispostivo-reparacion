@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import registroRutas from './src/routes/registro.routes.js'
+import authRutas from './src/routes/auth.routes.js'
+import garantiaRutas from './src/routes/garantia.routes.js'
+import finanzasRutas from './src/routes/finanzas.routes.js'
 import {validarJSON} from './src/middleware/error.middleware.js'
 
 
@@ -18,7 +21,10 @@ app.use(validarJSON);
 app.use(cors());
 
 //Rutas
-app.use('/api', registroRutas)
+app.use('/api/registro', registroRutas)
+app.use('/api/auth', authRutas)
+app.use('/api/garantia', garantiaRutas)
+app.use('/api/finanzas', finanzasRutas)
 
 // error 404
 app.use((req, res) =>{
