@@ -6,11 +6,11 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2.5rem;
-  background: rgba(10, 25, 47, 0.95);
+  background: var(--fondo);
   backdrop-filter: blur(10px);
   border-radius: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(1, 150, 180, 0.3);
+  border: 1px solid var(--azul-oscuro-transparente);
 }
 
 .grupo {
@@ -18,7 +18,7 @@
   flex-direction: column;
   padding: 2rem;
   border-radius: 12px;
-  border: 1px solid rgba(1, 150, 180, 0.3);
+  border: 1px solid rgba(241, 253, 255, 0.3);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   transition: all 200ms ease;
   background: rgba(10, 25, 47, 0.5);
@@ -30,11 +30,11 @@
 }
 
 .grupo h2 {
-  color: #0196b4;
+  color: var(--azul-medio);
   margin-bottom: 5px;
   font-size: 1.5rem;
   font-weight: 600;
-  border-left: 4px solid #0196b4;
+  border-left: 4px solid var(--azul-medio);
   padding-left: 1rem;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .grupo select:hover {
-  border-color: #0196b4;
+  border-color: var(--azul-claro)
 }
 
 .grupo select option {
@@ -70,7 +70,7 @@
 }
 
 .grupo select:focus {
-  border-color: #0196b4;
+  border-color: var(--azul-claro);
   box-shadow: 0 0 8px rgba(1, 150, 180, 0.3);
 }
 
@@ -97,7 +97,7 @@
 .textos textarea {
   width: 100%;
   padding: 1rem;
-  border: 2px solid rgba(1, 150, 180, 0.3);
+  border: 2px solid var(--azul-oscuro-transparente);
   border-radius: 0.75rem;
   background: transparent;
   font-size: 1rem;
@@ -147,8 +147,8 @@
 .textos input:not(:placeholder-shown),
 .textos textarea:focus,
 .textos textarea:not(:placeholder-shown) {
-  border-color: #0196b4;
-  box-shadow: 0 0 8px rgba(1, 150, 180, 0.3);
+  border-color: var(--azul-claro);
+  box-shadow: 0 0 8px var(--azul-oscuro-transparente);
 }
 
 .textos input:focus~.input-placeholder,
@@ -189,7 +189,7 @@
   height: calc(100% - 1rem);
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0196b4, #008300);
+  background: linear-gradient(135deg, var(--azul-claro), var(--verde-medio));
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
@@ -211,7 +211,7 @@
 
 .textos.busqueda .busqueda:hover {
   transform: translateY(-20%) scale(1.05);
-  box-shadow: 0 2px 8px rgba(1, 150, 180, 0.4);
+  box-shadow: 0 2px 8px var(--azul-medio-transparente);
 }
 
 .textos.busqueda .busqueda:last-of-type:hover {
@@ -271,7 +271,7 @@
 .btn-submit {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #0196b4, #008300);
+  background: linear-gradient(135deg, var(--verde-medio), var(--azul-medio));
   color: white;
   border: none;
   border-radius: 2rem;
@@ -287,7 +287,8 @@
 
 .btn-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(1, 150, 180, 0.4);
+  background: linear-gradient(135deg, var(--rojo-claro), var(--rojo-oscuro));
+  box-shadow: 0 4px 15px var(--azul-medio-transparente);
 }
 
 /* Diseño responsivo */
@@ -405,7 +406,7 @@
   border-radius: 12px;
   background: rgba(1, 150, 180, 0.05);
   /* Ligeramente tintado */
-  border: 1px solid rgba(1, 150, 180, 0.3);
+  border: 1px solid var(--azul-oscuro-transparente);
   position: relative;
   transition: all 0.3s ease;
   margin-left: -0.5rem;
@@ -413,15 +414,15 @@
 }
 
 .dispositivo-container:hover {
-  border-color: rgba(1, 150, 180, 0.6);
-  box-shadow: 0 4px 15px rgba(1, 150, 180, 0.1);
+  border-color: var(--azul-medio-transparente);
+  box-shadow: 0 4px 15px var(--azul-oscuro-transparente);
 }
 
 .dispositivo-container h3 {
-  color: #0196b4;
+  color: var(--azul-claro);
   margin-bottom: 1rem;
   font-size: 1.2rem;
-  border-bottom: 1px dashed rgba(1, 150, 180, 0.3);
+  border-bottom: 1px dashed var(--azul-oscuro-transparente);
   padding-bottom: 0.5rem;
 }
 
@@ -454,7 +455,7 @@
 }
 
 .reparacion-item h5 {
-  color: #e0e0e0;
+  color: var(--blanco);
   margin-bottom: 1.2rem;
   font-weight: 500;
 }
@@ -463,8 +464,8 @@
 .btn-agregar-dispositivo {
   width: 100%;
   padding: 1rem;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
+  background: linear-gradient(135deg, var(--verde-medio), var(--verde-claro));
+  color: var(--blanco);
   border: none;
   border-radius: 0.75rem;
   font-size: 1rem;
@@ -472,12 +473,12 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 4px 15px var(--verde-claro-transparente);
 }
 
 .btn-agregar-dispositivo:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 15px var(--verde-claro-transparente);
 }
 
 .btn-eliminar-dispositivo {
@@ -502,8 +503,8 @@
 .btn-agregar-reparacion {
   padding: 0.7rem 1.2rem;
   background: rgba(1, 150, 180, 0.1);
-  color: #0196b4;
-  border: 1px dashed #0196b4;
+  color: var(--azul-claro);
+  border: 1px dashed var(--azul-claro);
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -514,7 +515,7 @@
 }
 
 .btn-agregar-reparacion:hover {
-  background: rgba(1, 150, 180, 0.2);
+  background: var(--azul-oscuro-transparente);
   transform: translateY(-2px);
 }
 

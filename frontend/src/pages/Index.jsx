@@ -1,4 +1,4 @@
-
+import './tecnico/css/Index.css'
 export const Index = () => {
   return (
     <div className="container">
