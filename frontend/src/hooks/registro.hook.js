@@ -35,7 +35,7 @@ export const registroHook = () => {
         if (mensaje.texto) {
             const timer = setTimeout(() => {
                 setMensaje({ texto: '', tipo: '' });
-            }, 3000);
+            }, 5000);
             return () => clearTimeout(timer);
         }
     }, [mensaje.texto]);

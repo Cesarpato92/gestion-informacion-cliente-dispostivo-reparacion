@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor-autenticacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--fondo) 0%, #1a2a3a 50%, #0d1520 100%);
+    padding: 2rem;
+}
+
+.contenedor-autenticacion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(1, 150, 180, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.contenedor-autenticacion .titulo {
+    font-size: 2.5rem;
+    width: 500px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--blanco);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #0196b4, #4caf50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+}
+
+.contenedor-autenticacion .formulario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contenedor-autenticacion .formulario .input-group {
+    position: relative;
+}
+
+.contenedor-autenticacion .formulario input {
+    padding: 1rem 1.25rem;
+    border: 2px solid rgba(1, 150, 180, 0.3);
+    border-radius: 0.75rem;
+    width: 100%;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--blanco);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.contenedor-autenticacion .formulario input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contenedor-autenticacion .formulario input:focus {
+    outline: none;
+    border-color: #0196b4;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(1, 150, 180, 0.3);
+}
+
+.contenedor-autenticacion .formulario button {
+    padding: 1rem 1.25rem;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+    background: linear-gradient(135deg, #0196b4, #008300);
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contenedor-autenticacion .formulario button:hover {
+    background: linear-gradient(135deg, #00bcd4, #4caf50);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(1, 150, 180, 0.4);
+}
+
+.contenedor-autenticacion .formulario button:active {
+    transform: translateY(0);
+}
+
+.contenedor-autenticacion .enlaces {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.contenedor-autenticacion .enlaces a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.contenedor-autenticacion .enlaces a:hover {
+    color: #0196b4;
+    text-decoration: underline;
+}
+
+.contenedor-autenticacion .mensaje {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contenedor-autenticacion .mensaje.success {
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid #4caf50;
+    color: #a5d6a1;
+}
+
+.contenedor-autenticacion .mensaje.error {
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid #f44336;
+    color: #ef9a9a;
+}
+
+.contenedor-autenticacion .mensaje.info {
+    background: rgba(1, 150, 180, 0.2);
+    border: 1px solid #0196b4;
+    color: #81d4fa;
+}
+
+@media (max-width: 600px) {
+    .contenedor-autenticacion {
+        padding: 1rem;
+    }
+
+    .contenedor-autenticacion .titulo {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .contenedor-autenticacion .formulario {
+        gap: 1rem;
+    }
+
+    .contenedor-autenticacion .formulario input,
+    .contenedor-autenticacion .formulario button {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+    }
+}
