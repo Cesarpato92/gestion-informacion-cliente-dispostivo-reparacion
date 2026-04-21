@@ -1,5 +1,7 @@
-import './css/registro.css';
-import { registroHook } from '../hooks/registro.hook';
+import { Fragment } from 'react';
+import '../css/registro.css';
+import { Navbar } from '../../../components/Navbar';
+import { registroHook } from '../../../hooks/registro.hook';
 
 export const Registro = () => {
   const {
@@ -19,7 +21,9 @@ export const Registro = () => {
   } = registroHook();
 
   return (
-    <>
+    <Fragment>
+      <Navbar />
+      
       <main className="contenedor-registro">
         <form id="registroForm" onSubmit={handleSubmit}>
           {/* DATOS DEL CLIENTE */}
@@ -273,6 +277,7 @@ export const Registro = () => {
           </button>
         </form>
       </main>
-    </>
+    </Fragment>
   );
 };
+
